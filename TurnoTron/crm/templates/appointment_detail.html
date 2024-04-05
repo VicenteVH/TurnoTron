@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}Detalles de Reserva{% endblock %}
-
 {% block content %}
-<h1>Detalles de la Reserva</h1>
+  <h2>Detalles de la Reserva</h2>
+  <p>Barbería: {{ appointment.barber_shop }}</p>
+  <p>Fecha: {{ appointment.date }}</p>
+  <p>Hora: {{ appointment.time }}</p>
+  <p>Emisión: {{ appointment.issued_date }}</p>
 
-<p>Barbería: {{ appointment.barber_shop }}</p>
-<p>Fecha: {{ appointment.date }}</p>
-<p>Hora: {{ appointment.time }}</p>
-
+<a href="{% url 'modify_appointment' appointment.id %}"><button>Modificar reserva</button></a>
 <form method="post">
     {% csrf_token %}
-    <button type="submit" name="cancel">Cancelar Reserva</button>
+    <button type="submit" name="cancel">Cancelar reserva</button>
 </form>
 {% endblock %}
 

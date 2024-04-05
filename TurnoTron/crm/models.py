@@ -18,10 +18,11 @@ class Appointment(models.Model):
     date = models.DateField()
     time = models.TimeField()
     issued_date = models.DateTimeField(default=timezone.now)
+    is_expired = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Appointment #{self.pk}"
-    
+
     def cancel(self):
         self.delete()
 

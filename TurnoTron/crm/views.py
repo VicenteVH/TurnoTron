@@ -81,6 +81,20 @@ def reserve_appointment(request):
         form = AppointmentForm(request.POST)
         if form.is_valid():
             appointment = form.save(commit=False)
+            # Verificar si la fecha de la reserva es posterior a la fecha actual
+            if appointment.date < timezone.now().date():
+                # Si la fecha es anterior a la actual, mostrar un mensaje de error
+                return render(request, 'error.html', {'message': 'La fecha de la reserva no puede ser anterior a la fecha actual.'})
+            # Verificar si la hora de la reserva es con al menos 1 hora de anticipación
+            if appointment.date == timezone.now().date() and appointment.time <= (timezone.now() + timezone.timedelta(hours=1)).time():
+                # Si la hora es con menos de 1 hora de anticipación, mostrar un mensaje de error
+                return render(request, 'error.html', {'message': 'Debe hacer una reserva con al menos 1 día de anticipación.'})
+            # Verificar si ya existe una reserva para la misma fecha y hora
+            existing_appointment = Appointment.objects.filter(date=appointment.date, time=appointment.time).exists()
+            if existing_appointment:
+                # Si ya existe una reserva para la misma fecha y hora, mostrar un mensaje de error
+                return render(request, 'error.html', {'message': 'Ya existe una reserva para esta fecha y hora.'})
+            # Si todas las condiciones son satisfactorias, guardar la reserva
             appointment.customer = request.user
             appointment.issued_date = timezone.now()
             appointment.save()
@@ -117,13 +131,30 @@ def modify_appointment(request, appointment_id):
     if request.method == 'POST':
         form = AppointmentForm(request.POST, instance=appointment)
         if form.is_valid():
-            form.save()
-            return redirect('appointment_list')
+            new_appointment = form.save(commit=False)
+            # Verificar que la fecha y hora seleccionadas no estén en el pasado y tengan al menos 1 hora de anticipación
+            if new_appointment.date < timezone.now().date() or \
+                (new_appointment.date == timezone.now().date() and new_appointment.time < (timezone.now() + timezone.timedelta(hours=1)).time()):
+                # Mostrar error si la fecha y hora están en el pasado o tienen menos de 1 hora de anticipación
+                return render(request, 'error.html', {'message': 'No puedes modificar la reserva con una fecha u hora pasada.'})
+            # Verificar si la fecha y hora seleccionadas están ocupadas por otra reserva
+            if Appointment.objects.exclude(pk=appointment_id).filter(date=new_appointment.date, time=new_appointment.time).exists():
+                # Mostrar error si la fecha y hora seleccionadas están ocupadas por otra reserva
+                return render(request, 'error.html', {'message': 'Ya existe una reserva para la fecha y hora seleccionadas.'})
+            
+            new_appointment.save()
+            return redirect('appointment_detail', appointment_id=appointment_id)
     else:
         form = AppointmentForm(instance=appointment)
-    return render(request, 'modify_appointment.html', {'form': form})
+    return render(request, 'modify_appointment.html', {'form': form, 'appointment_id': appointment_id})
 
 @login_required
 def appointment_list(request):
-    appointments = Appointment.objects.filter(customer=request.user)
+    appointments = Appointment.objects.all()
     return render(request, 'appointment_list.html', {'appointments': appointments})
+
+@login_required
+def appointment_history(request):
+    # Obtener las reservas que ya han pasado su fecha y hora
+    past_appointments = Appointment.objects.filter(date__lt=timezone.now().date())
+    return render(request, 'appointment_history.html', {'past_appointments': past_appointments})

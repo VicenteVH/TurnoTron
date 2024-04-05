@@ -1,25 +1,11 @@
 
 {% extends 'base.html' %}
-
-{% block title %}Detalles de Reserva{% endblock %}
-
+{% block title %}Lista de Reservas{% endblock %}
 {% block content %}
-    <h1>Detalles de Reserva</h1>
     <h1>Lista de Reservas</h1>
-    {% if appointments %}
-        <ul>
-        {% for appointment in appointments %}
-            <li>
-                <a href="{% url 'appointment_detail' appointment.id %}">{{ appointment.date }} - {{ appointment.time }}</a>
-                {% if appointment.is_confirmed %}
-                    <span style="color: green;">Confirmado</span>
-                {% else %}
-                    <span style="color: red;">Pendiente</span>
-                {% endif %}
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No hay reservas disponibles.</p>
-    {% endif %}
+    <ul>
+        <li><a href="{% url 'appointment_list' %}">Reservas Próximas</a></li>
+        <li><a href="{% url 'appointment_history' %}">Historial de Reservas</a></li>
+    </ul>
+    <!-- Aquí puedes agregar el resto de tu código para mostrar las reservas próximas -->
 {% endblock %}

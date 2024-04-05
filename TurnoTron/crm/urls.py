@@ -14,7 +14,8 @@ urlpatterns = [
     path('appointment/<int:appointment_id>/', appointment_detail, name='appointment_detail'),
     path('appointment/<int:appointment_id>/cancel/', cancel_appointment, name='cancel_appointment'),
     path('appointment/<int:appointment_id>/modify/', modify_appointment, name='modify_appointment'),
-    path('appointments/', appointment_list, name='appointment_list'),
+    path('appointments/', views.appointment_list, name='appointment_list'),
+    path('appointments/history/', views.appointment_history, name='appointment_history'),
 ]
 
 
