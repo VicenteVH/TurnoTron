@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Inicio</h1>
+
+    <a href="{% url 'reserve_appointment' %}" class="btn btn-primary">Reservar turno</a>
+
+    <a href="{% url 'appointment_list' %}" class="btn btn-primary">Ver reservas</a>
+    
+    <a href="{% url 'user-logout' %}" class="btn btn-danger">Cerrar sesión</a>
+
+  </div>
+</body>
+</html>

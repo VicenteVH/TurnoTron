@@ -1,0 +1,14 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Detalles de Reserva{% endblock %}
+
+{% block content %}
+    <h1>Detalles de Reserva</h1>
+    <h1>Reservar Turno</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Reservar</button>
+    </form>
+{% endblock %}

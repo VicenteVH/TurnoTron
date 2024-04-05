@@ -1,0 +1,17 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Cancelar Reserva{% endblock %}
+
+{% block content %}
+    <h1>Confirmar Cancelación de Reserva</h1>
+
+    <p>¿Estás seguro de que deseas cancelar la reserva?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" name="confirm_cancel">Sí, Cancelar Reserva</button>
+    </form>
+    
+{% endblock %}
+
