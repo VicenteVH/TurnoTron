@@ -1,7 +1,8 @@
 from django.urls import path
 from . import views
 from .views import reserve_appointment, appointment_success, appointment_detail, cancel_appointment, modify_appointment, appointment_list, appointment_history, appointment_upcoming
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.homepage, name=""),
@@ -20,11 +21,4 @@ urlpatterns = [
     path('appointment-upcoming/', appointment_upcoming, name='appointment_upcoming'),
 ]
 
-
-
-
-
-
-
-
-
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

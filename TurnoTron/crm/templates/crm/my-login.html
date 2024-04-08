@@ -5,33 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-image: url('../../static/crm/images/Barberia.webp');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centrar elementos verticalmente */
+            justify-content: center; /* Centrar elementos horizontalmente */
+        }
+        .container {
+            background-size: cover;
+            background-repeat: repeat; /* Repetir la textura */
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px; /* Ancho máximo del contenedor */
+            margin: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Color de fondo con opacidad */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Borde con opacidad */
+        }
+        .card {
+            background-color: transparent; /* Fondo de la tarjeta transparente */
+            border: none; /* Sin borde */
+        }
+        .card-header {
+            background-color: rgba(255, 255, 255, 0.1); /* Fondo del encabezado de la tarjeta con opacidad */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Borde inferior con opacidad */
+            color: #fff; /* Color de texto blanco */
+            border-radius: 10px 10px 0 0; /* Bordes redondeados solo arriba */
+        }
+        .card-body {
+            background-color: rgba(255, 255, 255, 0.1); /* Fondo del cuerpo de la tarjeta con opacidad */
+            border-top: 1px solid rgba(255, 255, 255, 0.3); /* Borde superior con opacidad */
+            color: #fff; /* Color de texto blanco */
+            border-radius: 0 0 10px 10px; /* Bordes redondeados solo abajo */
+            padding: 20px; /* Ajuste del padding */
+        }
+        label {
+            color: #fff; /* Color de texto blanco */
+        }
+        input {
+            color: #fff; /* Color de texto blanco */
+            background-color: rgba(255, 255, 255, 0.2); /* Fondo del campo de entrada con opacidad */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Bordes redondeados */
+            padding: 8px; /* Espaciado interno */
+            margin-bottom: 10px; /* Espacio inferior */
+        }
+        .btn {
+            background-color: rgba(0, 0, 0, 0.6); /* Cambiar color de fondo azul con transparencia */
+            color: #fff; /* Color de texto blanco */
+            border: none; /* Sin borde */
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 10px 30px; /* Espaciado interno */
+            font-size: 20px; /* Tamaño de fuente */
+            font-family: Arial, sans-serif; /* Cambiar la fuente */
+            cursor: pointer; /* Cambiar cursor a mano */
+            transition: background-color 0.3s; /* Transición suave */
+        }
+        .btn:hover {
+            background-color: rgb(0, 0, 0); /* Cambiar color de fondo al pasar el mouse */
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Inicio de sesión</h2>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" autocomplete="off">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <label for="username">Usuario: </label>
-                                <input type="text" id="username" name="username" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Contraseña: </label>
-                                <input type="password" id="password" name="password" class="form-control">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Ingresar</button>                        
-                        </form>
-                    </div>
+  <header>
+    <h1>Iniciar sesión</h1>
+  </header>
+
+  <div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-md-1"> <!-- Ajuste del tamaño de la columna -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Inicio de sesión</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST" autocomplete="off">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="username">Usuario: </label>
+                            <input type="text" id="username" name="username" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña: </label>
+                            <input type="password" id="password" name="password" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ingresar</button>                        
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+  </div>
 </body>
 </html>
+
