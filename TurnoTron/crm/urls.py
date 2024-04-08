@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import reserve_appointment, appointment_success, appointment_detail, cancel_appointment, modify_appointment, appointment_list
+from .views import reserve_appointment, appointment_success, appointment_detail, cancel_appointment, modify_appointment, appointment_list, appointment_history, appointment_upcoming
 
 
 urlpatterns = [
@@ -14,8 +14,10 @@ urlpatterns = [
     path('appointment/<int:appointment_id>/', appointment_detail, name='appointment_detail'),
     path('appointment/<int:appointment_id>/cancel/', cancel_appointment, name='cancel_appointment'),
     path('appointment/<int:appointment_id>/modify/', modify_appointment, name='modify_appointment'),
-    path('appointments/', views.appointment_list, name='appointment_list'),
-    path('appointments/history/', views.appointment_history, name='appointment_history'),
+    path('appointments/', appointment_list, name='appointment_list'),
+    path('appointments/<int:appointment_id>/', appointment_detail, name='appointment_detail'),
+    path('appointment-history/', appointment_history, name='appointment_history'),
+    path('appointment-upcoming/', appointment_upcoming, name='appointment_upcoming'),
 ]
 
 

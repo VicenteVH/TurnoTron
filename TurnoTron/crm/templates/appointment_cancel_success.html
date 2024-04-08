@@ -1,0 +1,15 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Cancelación Exitosa{% endblock %}
+
+{% block content %}
+    <h1>¡Cancelación Exitosa!</h1>
+    <p>La reserva ha sido cancelada exitosamente.</p>
+    <button onclick="goToList()">Volver a la lista de reservas</button>
+    <script>
+        function goToList() {
+            window.location.href = "{% url 'appointment_list' %}";
+        }
+    </script>
+{% endblock %}

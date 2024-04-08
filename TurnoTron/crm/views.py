@@ -72,8 +72,11 @@ def dashboard(request):
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import AppointmentForm
-from .models import Appointment, BarberShop
+from .models import Appointment
 from django.utils import timezone
+from datetime import date
+import datetime
+from django.contrib import messages
 
 @login_required
 def reserve_appointment(request):
@@ -110,20 +113,25 @@ def appointment_success(request):
 @login_required
 def appointment_detail(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id)
-    if request.method == 'POST' and 'cancel' in request.POST:
-        # Mostrar la confirmación de cancelación
-        return render(request, 'cancel_appointment.html', {'appointment': appointment})
-    elif request.method == 'POST' and 'confirm_cancel' in request.POST:
-        # Eliminar la reserva si se confirma la cancelación
-        appointment.delete()
-        return redirect('dashboard')
+    in_history = False
+    if appointment.date < datetime.date.today():
+        in_history = True
     return render(request, 'appointment_detail.html', {'appointment': appointment})
 
 @login_required
 def cancel_appointment(request, appointment_id):
-    appointment = get_object_or_404(Appointment, appointment_id=appointment_id, customer=request.user)
-    appointment.delete()
-    return redirect('dashboard')
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+    
+    if request.method == 'POST':
+        # Verificar si se confirma la cancelación
+        if 'confirm_cancel' in request.POST:
+            appointment.delete()
+            return render(request, 'appointment_cancel_success.html')
+        else:
+            # Si no se confirma, redireccionar a otra página o mostrar un mensaje de cancelación
+            return redirect('appointment_detail', appointment_id=appointment_id)
+
+    return render(request, 'cancel_appointment.html', {'appointment': appointment}) 
 
 @login_required
 def modify_appointment(request, appointment_id):
@@ -132,18 +140,14 @@ def modify_appointment(request, appointment_id):
         form = AppointmentForm(request.POST, instance=appointment)
         if form.is_valid():
             new_appointment = form.save(commit=False)
-            # Verificar que la fecha y hora seleccionadas no estén en el pasado y tengan al menos 1 hora de anticipación
             if new_appointment.date < timezone.now().date() or \
                 (new_appointment.date == timezone.now().date() and new_appointment.time < (timezone.now() + timezone.timedelta(hours=1)).time()):
-                # Mostrar error si la fecha y hora están en el pasado o tienen menos de 1 hora de anticipación
                 return render(request, 'error.html', {'message': 'No puedes modificar la reserva con una fecha u hora pasada.'})
-            # Verificar si la fecha y hora seleccionadas están ocupadas por otra reserva
             if Appointment.objects.exclude(pk=appointment_id).filter(date=new_appointment.date, time=new_appointment.time).exists():
-                # Mostrar error si la fecha y hora seleccionadas están ocupadas por otra reserva
                 return render(request, 'error.html', {'message': 'Ya existe una reserva para la fecha y hora seleccionadas.'})
             
             new_appointment.save()
-            return redirect('appointment_detail', appointment_id=appointment_id)
+            return render(request, 'appointment_modify_success.html')
     else:
         form = AppointmentForm(instance=appointment)
     return render(request, 'modify_appointment.html', {'form': form, 'appointment_id': appointment_id})
@@ -158,3 +162,8 @@ def appointment_history(request):
     # Obtener las reservas que ya han pasado su fecha y hora
     past_appointments = Appointment.objects.filter(date__lt=timezone.now().date())
     return render(request, 'appointment_history.html', {'past_appointments': past_appointments})
+
+@login_required
+def appointment_upcoming(request):
+    upcoming_appointments = Appointment.objects.filter(date__gte=date.today()).order_by('date', 'time')
+    return render(request, 'appointment_upcoming.html', {'upcoming_appointments': upcoming_appointments})

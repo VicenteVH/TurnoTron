@@ -2,15 +2,10 @@
 
 {% block content %}
   <h2>Detalles de la Reserva</h2>
-  <p>Barbería: {{ appointment.barber_shop }}</p>
-  <p>Fecha: {{ appointment.date }}</p>
-  <p>Hora: {{ appointment.time }}</p>
-  <p>Emisión: {{ appointment.issued_date }}</p>
-
-<a href="{% url 'modify_appointment' appointment.id %}"><button>Modificar reserva</button></a>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit" name="cancel">Cancelar reserva</button>
-</form>
+  <p><strong>Barbería: {{ appointment.barber_shop }}</p>
+  <p><strong>Fecha: {{ appointment.date }}</p>
+  <p><strong>Hora: {{ appointment.time }}</p>
+  <p><strong>Emisión: {{ appointment.issued_date }}</p>
+  <button onclick="window.location.href='{% url 'modify_appointment' appointment.id %}'">Modificar</button>
+  <button onclick="window.location.href='{% url 'cancel_appointment' appointment.id %}'">Cancelar</button>
 {% endblock %}
-

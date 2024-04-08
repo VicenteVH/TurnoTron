@@ -2,10 +2,16 @@
 {% extends 'base.html' %}
 {% block title %}Lista de Reservas{% endblock %}
 {% block content %}
-    <h1>Lista de Reservas</h1>
-    <ul>
-        <li><a href="{% url 'appointment_list' %}">Reservas Próximas</a></li>
-        <li><a href="{% url 'appointment_history' %}">Historial de Reservas</a></li>
-    </ul>
-    <!-- Aquí puedes agregar el resto de tu código para mostrar las reservas próximas -->
+    <h1>Reservas</h1>
+    <button onclick="upcoming()">Reservas Próximas</button>
+    <button onclick="history()">Historial de Reservas</button>
+    <script>
+        function upcoming() {
+            window.location.href = "{% url 'appointment_upcoming' %}";
+        }
+
+        function history() {
+            window.location.href = "{% url 'appointment_history' %}";
+        }
+    </script>
 {% endblock %}

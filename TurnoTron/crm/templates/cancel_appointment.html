@@ -5,13 +5,27 @@
 
 {% block content %}
     <h1>Confirmar Cancelación de Reserva</h1>
-
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
     <p>¿Estás seguro de que deseas cancelar la reserva?</p>
 
-    <form method="post">
+    <form id="cancelForm" method="post" action="{% url 'cancel_appointment' appointment.id %}">
         {% csrf_token %}
-        <button type="submit" name="confirm_cancel">Sí, Cancelar Reserva</button>
+        <button type="submit" name="confirm_cancel" id="confirmCancelBtn">Sí, Cancelar Reserva</button>
     </form>
-    
+
+    <!-- Script para mostrar confirmación antes de enviar el formulario -->
+    <script>
+        document.getElementById("confirmCancelBtn").addEventListener("click", function(event) {
+            var confirmed = confirm("¿Estás seguro de que deseas cancelar la reserva?");
+            if (!confirmed) {
+                event.preventDefault(); // Cancela el envío del formulario si no está confirmado
+            }
+        });
+    </script>
+    {% if success_message %}
+        <p>{{ success_message }}</p>
+    {% endif %}
 {% endblock %}
 

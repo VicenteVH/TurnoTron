@@ -8,6 +8,15 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Modificar reserva</button>
+        <button type="submit">Confirmar cambios</button>
     </form>
+    <button onclick="goToList()">Cancelar</button>
+    <script>
+        function goToList() {
+            window.location.href = "{% url 'appointment_list' %}";
+        }
+    </script>
 {% endblock %}
+
+
+

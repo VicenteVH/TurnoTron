@@ -1,0 +1,20 @@
+<!-- appointment_upcoming.html -->
+{% extends 'base.html' %}
+
+{% block title %}Próximas Reservas{% endblock %}
+
+{% block content %}
+    <h1>Próximas Reservas</h1>
+    {% if upcoming_appointments %}
+        <ul>
+            {% for appointment in upcoming_appointments %}
+                <li>
+                    <strong>{{ appointment.date }}</strong> - {{ appointment.barber_shop.name }}
+                    <button onclick="window.location.href='{% url 'appointment_detail' appointment.id %}'">Ver detalles</button>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay próximas reservas.</p>
+    {% endif %}
+{% endblock %}
