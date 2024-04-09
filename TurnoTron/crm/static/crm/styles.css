@@ -1,0 +1,199 @@
+body {
+    background-image: url('./images/Barberia.webp');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar elementos verticalmente */
+    justify-content: center; /* Centrar elementos horizontalmente */
+    margin: 0; /* Eliminar margen por defecto */
+    padding: 0; /* Eliminar relleno por defecto */
+}
+
+
+header {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    position: fixed; /* Fijar el encabezado en la parte superior de la página */
+    top: 0; /* Posicionar el encabezado en la parte superior de la página */
+    z-index: 1000; /* Asegurar que el encabezado esté por encima de otros elementos */
+}
+.container {
+    background-size: cover;
+    background-repeat: repeat; /* Repetir la textura */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px; /* Ancho máximo del contenedor */
+    margin: auto;
+    margin-top: 80px; /* Espacio para evitar que el contenido se solape con el encabezado */
+    background-color: rgba(0, 0, 0, 0.5); /* Color de fondo con opacidad */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borde con opacidad */
+}
+h1 {
+    margin-bottom: 20px;
+    color: #fff; /* Color de texto blanco */
+}
+p {
+    margin-bottom: 20px;
+    color: #fff; /* Color de texto blanco */
+}
+input[type="text"], input[type="email"], input[type="password"], select, input[type="date"], input[type="time"] {
+    margin: 10px auto; /* Espaciado de los campos de entrada */
+    display: block; /* Mostrar cada campo en una nueva línea */
+    background-color: rgba(0, 0, 0, 0.6); /* Cambiar color de fondo azul con transparencia */
+    color: #fff; /* Color de texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    font-family: Arial, sans-serif; /* Cambiar la fuente */
+    width: calc(100% - 20px); /* Ancho del campo de entrada */
+}
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus, input[type="date"]:focus, input[type="time"]:focus {
+    outline: none; /* Eliminar el contorno al enfocar */
+    background-color: rgba(0, 0, 0, 0.8); /* Cambiar color de fondo al enfocar */
+}
+input[type="submit"] {
+    margin: 20px auto; /* Centrar el botón de enviar */
+    display: block; /* Convertir el botón en un bloque para centrarlo */
+    background-color: rgba(0, 0, 0, 0.6); /* Cambiar color de fondo azul con transparencia */
+    color: #fff; /* Color de texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 10px 30px; /* Espaciado interno */
+    font-size: 20px; /* Tamaño de fuente */
+    font-family: Arial, sans-serif; /* Cambiar la fuente */
+    cursor: pointer; /* Cambiar cursor a mano */
+    transition: background-color 0.3s; /* Transición suave */
+}
+input[type="submit"]:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Cambiar color de fondo al pasar el mouse */
+}
+
+
+
+/* Estilos específicos para la lista de historial de reservas */
+
+.history-appointments {
+    margin-top: 40px; /* Espacio superior */
+    text-align: center; /* Centrar el contenido */
+}
+
+.history-appointments ul {
+    list-style-type: none; /* Eliminar los puntos de la lista */
+    padding: 0; /* Eliminar el relleno */
+    margin: 0; /* Eliminar el margen */
+}
+
+.history-appointments li {
+    background-color: rgba(0, 0, 0, 0.5); /* Color de fondo con opacidad */
+    padding: 10px; /* Espaciado interno reducido */
+    border-radius: 10px; /* Bordes redondeados */
+    margin-bottom: 10px; /* Espacio inferior reducido */
+    color: #fff; /* Color de texto blanco */
+}
+
+.history-appointments li strong {
+    color: #fff; /* Color de texto blanco */
+}
+
+.history-appointments li button {
+    background-color: rgba(0, 0, 0, 0.6); /* Color de fondo del botón con opacidad */
+    color: #fff; /* Color de texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 5px 10px; /* Espaciado interno reducido */
+    font-size: 14px; /* Tamaño de fuente reducido */
+    cursor: pointer; /* Cambiar cursor a mano */
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+.history-appointments li button:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Cambiar color de fondo al pasar el mouse */
+}
+
+
+/* Estilos específicos para los detalles de la reserva */
+.appointment-details {
+    margin-top: 40px; /* Espacio superior */
+    text-align: center; /* Centrar el contenido */
+    color: #fff; /* Color de texto blanco */
+}
+
+.details-container {
+    background-color: rgba(0, 0, 0, 0.5); /* Color de fondo del contenedor con opacidad */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    margin: 0 auto 20px auto; /* Centrar el contenedor horizontalmente y agregar espacio inferior */
+    max-width: 400px; /* Ancho máximo del contenedor */
+    text-align: justify; /* Justificar el texto dentro del contenedor */
+}
+
+.details-container p {
+    margin-bottom: 10px; /* Espacio inferior para cada párrafo */
+}
+
+.modify-button,
+.cancel-button {
+    background-color: rgba(0, 0, 0, 0.6); /* Color de fondo del botón con opacidad */
+    color: #fff; /* Color de texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cambiar cursor a mano */
+    transition: background-color 0.3s; /* Transición suave */
+    margin-top: 20px; /* Espacio superior para los botones */
+    display: inline-block; /* Permitir que los botones floten uno al lado del otro */
+    margin-right: 10px; /* Espacio derecho entre los botones */
+}
+
+.modify-button:hover,
+.cancel-button:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Cambiar color de fondo al pasar el mouse */
+}
+
+/* Estilos específicos para la lista de próximas reservas */
+.upcoming-appointments {
+    margin-top: 40px; /* Espacio superior */
+    text-align: center; /* Centrar el contenido */
+}
+
+.upcoming-appointments ul {
+    list-style-type: none; /* Eliminar los puntos de la lista */
+    padding: 0; /* Eliminar el relleno */
+    margin: 0; /* Eliminar el margen */
+}
+
+.upcoming-appointments li {
+    background-color: rgba(0, 0, 0, 0.5); /* Color de fondo con opacidad */
+    padding: 10px; /* Espaciado interno reducido */
+    border-radius: 10px; /* Bordes redondeados */
+    margin-bottom: 10px; /* Espacio inferior reducido */
+    color: #fff; /* Color de texto blanco */
+}
+
+.upcoming-appointments li strong {
+    color: #fff; /* Color de texto blanco */
+}
+
+.upcoming-appointments li a {
+    background-color: rgba(0, 0, 0, 0.6); /* Color de fondo del botón con opacidad */
+    color: #fff; /* Color de texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 5px 10px; /* Espaciado interno reducido */
+    font-size: 14px; /* Tamaño de fuente reducido */
+    cursor: pointer; /* Cambiar cursor a mano */
+    transition: background-color 0.3s; /* Transición suave */
+    text-decoration: none;
+}
+
+.upcoming-appointments li a:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Cambiar color de fondo al pasar el mouse */
+    text-decoration: none;
+}
