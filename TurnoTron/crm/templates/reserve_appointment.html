@@ -1,22 +1,19 @@
+
 {% extends 'base.html' %}
 
 {% block title %}Detalles de Reserva{% endblock %}
 
+{% block header_title %}Reservar Turno{% endblock %}
+
 {% block content %}
-    <h1 class="display-4">Reservar Turno</h1>
     <div class="container">
-        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-            <div class="card-header">Detalles de Reserva</div>
-            <div class="card-body">
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary">Confirmar reserva</button>
-                </form>
-            </div>
-        </div>
+        <form method="post">
+            {% csrf_token %}
+            <h1>Detalles de la Reserva</h1>
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Confirmar reserva</button>
+        </form>
     </div>
 {% endblock %}
-
 
 

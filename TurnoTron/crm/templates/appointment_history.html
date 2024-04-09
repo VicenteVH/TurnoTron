@@ -1,25 +1,63 @@
-<!-- appointment_history.html -->
 {% extends 'base.html' %}
 
 {% block title %}Historial de Reservas{% endblock %}
 
+{% block header_title %}Historial de Reservas{% endblock %}
+
 {% block content %}
-    <h1>Historial de Reservas</h1>
-    {% if past_appointments %}
-        <ul>
-            {% for appointment in past_appointments %}
-                <li>
-                    <strong>{{ appointment.date }}</strong> a las {{ appointment.time }} - {{ appointment.barber_shop.name }}                    
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No hay historial de reservas.</p>
-    {% endif %}
-    <button onclick="goToList()">Atrás</button>
-    <script>
-        function goToList() {
-            window.location.href = "{% url 'appointment_list' %}";
+    <style>
+        /* Estilos específicos para la lista de historial de reservas */
+        .history-appointments {
+            margin-top: 40px; /* Espacio superior */
+            text-align: center; /* Centrar el contenido */
         }
-    </script>
+
+        .history-appointments ul {
+            list-style-type: none; /* Eliminar los puntos de la lista */
+            padding: 0; /* Eliminar el relleno */
+            margin: 0; /* Eliminar el margen */
+        }
+
+        .history-appointments li {
+            background-color: rgba(0, 0, 0, 0.5); /* Color de fondo con opacidad */
+            padding: 10px; /* Espaciado interno reducido */
+            border-radius: 10px; /* Bordes redondeados */
+            margin-bottom: 10px; /* Espacio inferior reducido */
+            color: #fff; /* Color de texto blanco */
+        }
+
+        .history-appointments li strong {
+            color: #fff; /* Color de texto blanco */
+        }
+
+        .history-appointments li button {
+            background-color: rgba(0, 0, 0, 0.6); /* Color de fondo del botón con opacidad */
+            color: #fff; /* Color de texto blanco */
+            border: none; /* Sin borde */
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 5px 10px; /* Espaciado interno reducido */
+            font-size: 14px; /* Tamaño de fuente reducido */
+            cursor: pointer; /* Cambiar cursor a mano */
+            transition: background-color 0.3s; /* Transición suave */
+        }
+
+        .history-appointments li button:hover {
+            background-color: rgba(0, 0, 0, 0.8); /* Cambiar color de fondo al pasar el mouse */
+        }
+    </style>
+
+    <div class="history-appointments">
+        
+        {% if past_appointments %}
+            <ul>
+                {% for appointment in past_appointments %}
+                    <li>
+                        <strong>{{ appointment.date }}</strong> - <span style="color: #fff;">{{ appointment.barber_shop.name }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay historial de reservas.</p>
+        {% endif %}
+    </div>
 {% endblock %}

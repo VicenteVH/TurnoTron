@@ -4,9 +4,12 @@
 {% block title %}Reserva Exitosa{% endblock %}
 
 {% block content %}
-    <h1>¡Reserva Exitosa!</h1>
-    <p>La reserva ha sido creada exitosamente.</p>
-    <button onclick="goToList()">Ver la lista de reservas</button>
+    <div class="container">
+        <h1>¡Reserva Exitosa!</h1>
+        <p>La reserva ha sido creada exitosamente.</p>
+        <button onclick="goToList()" class="btn btn-success">Ver la lista de reservas</button>
+    </div>
+
     <script>
         function goToList() {
             window.location.href = "{% url 'appointment_list' %}";

@@ -1,22 +1,22 @@
-
 {% extends 'base.html' %}
 
-{% block title %}Detalles de Reserva{% endblock %}
+{% block title %}Modificar Reserva{% endblock %}
+
+{% block header_title %}Modificar Reserva{% endblock %}
 
 {% block content %}
-    <h1>Modificar reserva</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Confirmar cambios</button>
-    </form>
-    <button onclick="goToList()">Cancelar</button>
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Confirmar cambios</button>
+        </form>
+        <button onclick="goToList()" class="btn btn-secondary">Cancelar</button>
+    </div>
+
     <script>
         function goToList() {
             window.location.href = "{% url 'appointment_list' %}";
         }
     </script>
 {% endblock %}
-
-
-

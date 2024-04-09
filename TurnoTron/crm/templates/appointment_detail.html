@@ -1,11 +1,60 @@
 {% extends 'base.html' %}
 
+{% block title %}Detalles de la Reserva{% endblock %}
+
+{% block header_title %}Detalles de la Reserva{% endblock %}
+
 {% block content %}
-  <h2>Detalles de la Reserva</h2>
-  <p><strong>Barbería: {{ appointment.barber_shop }}</p>
-  <p><strong>Fecha: {{ appointment.date }}</p>
-  <p><strong>Hora: {{ appointment.time }}</p>
-  <p><strong>Emisión: {{ appointment.issued_date }}</p>
-  <button onclick="window.location.href='{% url 'modify_appointment' appointment.id %}'">Modificar</button>
-  <button onclick="window.location.href='{% url 'cancel_appointment' appointment.id %}'">Cancelar</button>
+    <style>
+        /* Estilos específicos para los detalles de la reserva */
+        .appointment-details {
+            margin-top: 40px; /* Espacio superior */
+            text-align: center; /* Centrar el contenido */
+            color: #fff; /* Color de texto blanco */
+        }
+
+        .details-container {
+            background-color: rgba(0, 0, 0, 0.5); /* Color de fondo del contenedor con opacidad */
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 20px; /* Espaciado interno */
+            margin: 0 auto 20px auto; /* Centrar el contenedor horizontalmente y agregar espacio inferior */
+            max-width: 400px; /* Ancho máximo del contenedor */
+            text-align: justify; /* Justificar el texto dentro del contenedor */
+        }
+
+        .details-container p {
+            margin-bottom: 10px; /* Espacio inferior para cada párrafo */
+        }
+
+        .modify-button,
+        .cancel-button {
+            background-color: rgba(0, 0, 0, 0.6); /* Color de fondo del botón con opacidad */
+            color: #fff; /* Color de texto blanco */
+            border: none; /* Sin borde */
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 10px 20px; /* Espaciado interno */
+            font-size: 16px; /* Tamaño de fuente */
+            cursor: pointer; /* Cambiar cursor a mano */
+            transition: background-color 0.3s; /* Transición suave */
+            margin-top: 20px; /* Espacio superior para los botones */
+            display: inline-block; /* Permitir que los botones floten uno al lado del otro */
+            margin-right: 10px; /* Espacio derecho entre los botones */
+        }
+
+        .modify-button:hover,
+        .cancel-button:hover {
+            background-color: rgba(0, 0, 0, 0.8); /* Cambiar color de fondo al pasar el mouse */
+        }
+    </style>
+
+    <div class="appointment-details">
+        <div class="details-container">
+            <p><strong>Barbería:</strong> {{ appointment.barber_shop }}</p>
+            <p><strong>Fecha:</strong> {{ appointment.date }}</p>
+            <p><strong>Hora:</strong> {{ appointment.time }}</p>
+            <p><strong>Emisión:</strong> {{ appointment.issued_date }}</p>
+        </div>
+        <button class="modify-button" onclick="window.location.href='{% url 'modify_appointment' appointment.id %}'">Modificar</button>
+        <button class="cancel-button" onclick="window.location.href='{% url 'cancel_appointment' appointment.id %}'">Cancelar</button>
+    </div>
 {% endblock %}

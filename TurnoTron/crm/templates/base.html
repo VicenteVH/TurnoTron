@@ -1,3 +1,4 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,19 +17,58 @@
             flex-direction: column;
             align-items: center; /* Centrar elementos verticalmente */
             justify-content: center; /* Centrar elementos horizontalmente */
-            padding: 20px;
-            margin: 0;
+            margin: 0; /* Eliminar margen por defecto */
+            padding: 0; /* Eliminar relleno por defecto */
         }
-        main {
-            background-color: rgba(0, 0, 0, 0.5); /* Color de fondo con opacidad */
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            position: fixed; /* Fijar el encabezado en la parte superior de la página */
+            top: 0; /* Posicionar el encabezado en la parte superior de la página */
+            z-index: 1000; /* Asegurar que el encabezado esté por encima de otros elementos */
+        }
+        .container {
+            background-size: cover;
+            background-repeat: repeat; /* Repetir la textura */
+            padding: 20px;
             border-radius: 10px;
-            padding: 20px;
-            max-width: 400px; /* Ancho máximo del contenido */
+            text-align: center;
+            max-width: 400px; /* Ancho máximo del contenedor */
             margin: auto;
+            margin-top: 80px; /* Espacio para evitar que el contenido se solape con el encabezado */
+            background-color: rgba(0, 0, 0, 0.5); /* Color de fondo con opacidad */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Borde con opacidad */
         }
-        button {
-            margin-top: 20px;
-            background-color: rgba(0, 0, 0, 0.6); /* Color de fondo azul con transparencia */
+        h1 {
+            margin-bottom: 20px;
+            color: #fff; /* Color de texto blanco */
+        }
+        p {
+            margin-bottom: 20px;
+            color: #fff; /* Color de texto blanco */
+        }
+        input[type="text"], input[type="email"], input[type="password"], select, input[type="date"], input[type="time"] {
+            margin: 10px auto; /* Espaciado de los campos de entrada */
+            display: block; /* Mostrar cada campo en una nueva línea */
+            background-color: rgba(0, 0, 0, 0.6); /* Cambiar color de fondo azul con transparencia */
+            color: #fff; /* Color de texto blanco */
+            border: none; /* Sin borde */
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interno */
+            font-size: 16px; /* Tamaño de fuente */
+            font-family: Arial, sans-serif; /* Cambiar la fuente */
+            width: calc(100% - 20px); /* Ancho del campo de entrada */
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus, input[type="date"]:focus, input[type="time"]:focus {
+            outline: none; /* Eliminar el contorno al enfocar */
+            background-color: rgba(0, 0, 0, 0.8); /* Cambiar color de fondo al enfocar */
+        }
+        input[type="submit"] {
+            margin: 20px auto; /* Centrar el botón de enviar */
+            display: block; /* Convertir el botón en un bloque para centrarlo */
+            background-color: rgba(0, 0, 0, 0.6); /* Cambiar color de fondo azul con transparencia */
             color: #fff; /* Color de texto blanco */
             border: none; /* Sin borde */
             border-radius: 10px; /* Bordes redondeados */
@@ -38,17 +78,23 @@
             cursor: pointer; /* Cambiar cursor a mano */
             transition: background-color 0.3s; /* Transición suave */
         }
-        button:hover {
-            background-color: rgb(0, 0, 0); /* Cambiar color de fondo al pasar el mouse */
+        input[type="submit"]:hover {
+            background-color: rgba(0, 0, 0, 0.8); /* Cambiar color de fondo al pasar el mouse */
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>{% block header_title %}{% endblock %}</h1>
+    </header>
+
     <main>
         {% block content %}
         {% endblock %}
     </main>
-    <button onclick="goToDashboard()">Volver a Inicio</button>
+
+    <button onclick="goToDashboard()" class="btn btn-dark btn-lg mt-3">Volver a Inicio</button>
+
     <script>
         function goToDashboard() {
             window.location.href = "{% url 'dashboard' %}";
@@ -56,4 +102,3 @@
     </script>
 </body>
 </html>
-

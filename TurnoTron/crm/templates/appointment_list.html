@@ -1,10 +1,42 @@
-
 {% extends 'base.html' %}
+
 {% block title %}Lista de Reservas{% endblock %}
+
+{% block header_title %}Mis Reservas{% endblock %}
+
 {% block content %}
-    <h1>Reservas</h1>
-    <button onclick="upcoming()">Reservas Próximas</button>
-    <button onclick="history()">Historial de Reservas</button>
+    <style>
+        /* Estilos específicos para el título */
+        .page-title {
+            text-align: center; /* Centrar el título */
+            margin-top: 20px; /* Espacio superior */
+            margin-bottom: 20px; /* Espacio inferior */
+            color: #fff; /* Color de texto blanco */
+        }
+
+        .btn-dark {
+            background-color: rgba(0, 0, 0, 0.6); /* Cambiar opacidad del color de fondo */
+            color: #fff; /* Color de texto blanco */
+            border: none; /* Sin borde */
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 15px 30px; /* Espaciado interno */
+            font-size: 24px; /* Tamaño de fuente */
+            font-family: Arial, sans-serif; /* Cambiar la fuente */
+            cursor: pointer; /* Cambiar cursor a mano */
+            transition: background-color 0.3s; /* Transición suave */
+            margin-bottom: 0px; /* Agregar margen inferior para separar los botones */
+        }
+        .btn-dark:hover {
+            background-color: rgba(0, 0, 0, 0.8); /* Cambiar opacidad del color de fondo al pasar el mouse */
+        }
+    </style>
+
+    <div class="container">
+        <!-- Botones de reserva -->
+        <a href="{% url 'appointment_upcoming' %}" class="btn btn-dark btn-lg mb-3">Reservas Próximas</a>
+        <a href="{% url 'appointment_history' %}" class="btn btn-dark btn-lg">Historial de Reservas</a>
+    </div>
+
     <script>
         function upcoming() {
             window.location.href = "{% url 'appointment_upcoming' %}";
