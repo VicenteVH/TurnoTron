@@ -1,22 +1,25 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} <!-- Extiende la plantilla base.html -->
 
-{% block title %}Modificar Reserva{% endblock %}
+{% block title %}Modificar Reserva{% endblock %} <!-- Define el título de la página como "Modificar Reserva" -->
 
-{% block header_title %}Modificar Reserva{% endblock %}
+{% block header_title %}Modificar Reserva{% endblock %} <!-- Define el título del encabezado como "Modificar Reserva" -->
 
-{% block content %}
-    <div class="container">
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Confirmar cambios</button>
-        </form>
-        <button onclick="goToList()" class="btn btn-secondary">Cancelar</button>
-    </div>
+{% block content %} <!-- Inicia el bloque de contenido -->
+
+    <div class="container"> <!-- Inicia el contenedor principal -->
+        <form method="post"> <!-- Inicia el formulario de modificación de reserva -->
+            {% csrf_token %} <!-- Token CSRF para protección contra falsificación de solicitudes entre sitios -->
+            {{ form.as_p }} <!-- Renderiza el formulario con los campos como párrafos -->
+            <button type="submit" class="btn btn-primary">Confirmar cambios</button> <!-- Botón para confirmar los cambios -->
+        </form> <!-- Termina el formulario de modificación de reserva -->
+
+        <button onclick="goToList()" class="btn btn-secondary">Cancelar</button> <!-- Botón para cancelar la modificación y volver a la lista de reservas -->
+    </div> <!-- Termina el contenedor principal -->
 
     <script>
         function goToList() {
-            window.location.href = "{% url 'appointment_list' %}";
+            window.location.href = "{% url 'appointment_list' %}"; <!-- Redirige a la lista de reservas al hacer clic en el botón de cancelar -->
         }
-    </script>
-{% endblock %}
+    </script> <!-- Script para redireccionar al hacer clic en el botón de cancelar -->
+
+{% endblock %} <!-- Termina el bloque de contenido -->

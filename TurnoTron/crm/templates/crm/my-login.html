@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Metadatos -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título de la página -->
     <title>Iniciar sesión</title>
+    <!-- Enlace al archivo CSS de Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+    <!-- Estilos CSS Personalizados -->
     <style>
+        /* Estilos para el cuerpo del documento */
         body {
             background-image: url('../../static/crm/images/Barberia.webp');
             background-size: cover;
@@ -16,6 +21,24 @@
             align-items: center; /* Centrar elementos verticalmente */
             justify-content: center; /* Centrar elementos horizontalmente */
         }
+        /* Estilos para el encabezado */
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        /* Estilos para el título */
+        h1 {
+            margin-bottom: 20px;
+            color: #fff; /* Color de texto blanco */
+        }
+        /* Estilos para los párrafos */
+        p {
+            margin-bottom: 20px;
+            color: #fff; /* Color de texto blanco */
+        }
+        /* Estilos para el contenedor */
         .container {
             background-size: cover;
             background-repeat: repeat; /* Repetir la textura */
@@ -27,16 +50,19 @@
             background-color: rgba(0, 0, 0, 0.5); /* Color de fondo con opacidad */
             border: 1px solid rgba(255, 255, 255, 0.3); /* Borde con opacidad */
         }
+        /* Estilos para la tarjeta */
         .card {
             background-color: transparent; /* Fondo de la tarjeta transparente */
             border: none; /* Sin borde */
         }
+        /* Estilos para el encabezado de la tarjeta */
         .card-header {
             background-color: rgba(255, 255, 255, 0.1); /* Fondo del encabezado de la tarjeta con opacidad */
             border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Borde inferior con opacidad */
             color: #fff; /* Color de texto blanco */
             border-radius: 10px 10px 0 0; /* Bordes redondeados solo arriba */
         }
+        /* Estilos para el cuerpo de la tarjeta */
         .card-body {
             background-color: rgba(255, 255, 255, 0.1); /* Fondo del cuerpo de la tarjeta con opacidad */
             border-top: 1px solid rgba(255, 255, 255, 0.3); /* Borde superior con opacidad */
@@ -44,9 +70,11 @@
             border-radius: 0 0 10px 10px; /* Bordes redondeados solo abajo */
             padding: 20px; /* Ajuste del padding */
         }
+        /* Estilos para las etiquetas */
         label {
             color: #fff; /* Color de texto blanco */
         }
+        /* Estilos para los campos de entrada */
         input {
             color: #fff; /* Color de texto blanco */
             background-color: rgba(255, 255, 255, 0.2); /* Fondo del campo de entrada con opacidad */
@@ -55,6 +83,7 @@
             padding: 8px; /* Espaciado interno */
             margin-bottom: 10px; /* Espacio inferior */
         }
+        /* Estilos para los botones */
         .btn {
             background-color: rgba(0, 0, 0, 0.6); /* Cambiar color de fondo azul con transparencia */
             color: #fff; /* Color de texto blanco */
@@ -66,35 +95,38 @@
             cursor: pointer; /* Cambiar cursor a mano */
             transition: background-color 0.3s; /* Transición suave */
         }
+        /* Estilos para los botones al pasar el mouse */
         .btn:hover {
             background-color: rgb(0, 0, 0); /* Cambiar color de fondo al pasar el mouse */
         }
     </style>
 </head>
 <body>
+  <!-- Encabezado de la página -->
   <header>
-    <h1>Iniciar sesión</h1>
+    <h1>Iniciar sesión</h1> <!-- Título principal -->
   </header>
 
+  <!-- Contenedor -->
   <div class="container">
     <div class="row">
-        <div class="col-md-10 offset-md-1"> <!-- Ajuste del tamaño de la columna -->
-            <div class="card">
+        <div class="col-md-10 offset-md-1"> <!-- Ajuste del tamaño de la columna y margen izquierdo -->
+            <div class="card"> <!-- Tarjeta -->
                 <div class="card-header">
-                    <h2>Inicio de sesión</h2>
+                    <h2>Inicio de sesión</h2> <!-- Encabezado de la tarjeta -->
                 </div>
                 <div class="card-body">
-                    <form method="POST" autocomplete="off">
-                        {% csrf_token %}
+                    <form method="POST" autocomplete="off"> <!-- Formulario para iniciar sesión -->
+                        {% csrf_token %} <!-- Token CSRF -->
                         <div class="form-group">
-                            <label for="username">Usuario: </label>
-                            <input type="text" id="username" name="username" class="form-control">
+                            <label for="username">Usuario: </label> <!-- Campo para el nombre de usuario -->
+                            <input type="text" id="username" name="username" class="form-control"> <!-- Entrada de texto para el nombre de usuario -->
                         </div>
                         <div class="form-group">
-                            <label for="password">Contraseña: </label>
-                            <input type="password" id="password" name="password" class="form-control">
+                            <label for="password">Contraseña: </label> <!-- Campo para la contraseña -->
+                            <input type="password" id="password" name="password" class="form-control"> <!-- Entrada de texto para la contraseña -->
                         </div>
-                        <button type="submit" class="btn btn-primary">Ingresar</button>                        
+                        <button type="submit" class="btn btn-primary">Ingresar</button> <!-- Botón para enviar el formulario -->
                     </form>
                 </div>
             </div>
@@ -103,4 +135,3 @@
   </div>
 </body>
 </html>
-

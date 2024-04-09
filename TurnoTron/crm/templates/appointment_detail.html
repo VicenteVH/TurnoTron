@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} <!-- Extiende el diseño base -->
 
-{% block title %}Detalles de la Reserva{% endblock %}
+{% block title %}Detalles de la Reserva{% endblock %} <!-- Título de la página -->
 
-{% block header_title %}Detalles de la Reserva{% endblock %}
+{% block header_title %}Detalles de la Reserva{% endblock %} <!-- Título del encabezado -->
 
-{% block content %}
+{% block content %} <!-- Contenido de la página -->
     <style>
         /* Estilos específicos para los detalles de la reserva */
         .appointment-details {
@@ -47,14 +47,14 @@
         }
     </style>
 
-    <div class="appointment-details">
-        <div class="details-container">
-            <p><strong>Barbería:</strong> {{ appointment.barber_shop }}</p>
-            <p><strong>Fecha:</strong> {{ appointment.date }}</p>
-            <p><strong>Hora:</strong> {{ appointment.time }}</p>
-            <p><strong>Emisión:</strong> {{ appointment.issued_date }}</p>
+    <div class="appointment-details"> <!-- Contenedor de detalles de la reserva -->
+        <div class="details-container"> <!-- Contenedor de detalles específicos -->
+            <p><strong>Barbería:</strong> {{ appointment.barber_shop }}</p> <!-- Detalles de la barbería -->
+            <p><strong>Fecha:</strong> {{ appointment.date }}</p> <!-- Detalles de la fecha -->
+            <p><strong>Hora:</strong> {{ appointment.time }}</p> <!-- Detalles de la hora -->
+            <p><strong>Emisión:</strong> {{ appointment.issued_date }}</p> <!-- Detalles de la fecha de emisión -->
         </div>
-        <button class="modify-button" onclick="window.location.href='{% url 'modify_appointment' appointment.id %}'">Modificar</button>
-        <button class="cancel-button" onclick="window.location.href='{% url 'cancel_appointment' appointment.id %}'">Cancelar</button>
+        <button class="modify-button" onclick="window.location.href='{% url 'modify_appointment' appointment.id %}'">Modificar</button> <!-- Botón para modificar la reserva -->
+        <button class="cancel-button" onclick="window.location.href='{% url 'cancel_appointment' appointment.id %}'">Cancelar</button> <!-- Botón para cancelar la reserva -->
     </div>
-{% endblock %}
+{% endblock %} <!-- Fin del bloque de contenido -->

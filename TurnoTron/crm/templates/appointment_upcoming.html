@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} <!-- Extiende el diseño base -->
 
-{% block title %}Próximas Reservas{% endblock %}
+{% block title %}Próximas Reservas{% endblock %} <!-- Título de la página -->
 
-{% block header_title %}Próximas Reservas{% endblock %}
+{% block header_title %}Próximas Reservas{% endblock %} <!-- Título del encabezado -->
 
-{% block content %}
+{% block content %} <!-- Contenido de la página -->
     <style>
         /* Estilos específicos para la lista de próximas reservas */
         .upcoming-appointments {
@@ -53,12 +53,12 @@
                 {% for appointment in upcoming_appointments %}
                     <li>
                         <strong>{{ appointment.date }}</strong> - <span style="color: #fff;">{{ appointment.barber_shop.name }}</span>
-                        <button onclick="window.location.href='{% url 'appointment_detail' appointment.id %}'">Ver detalles</button>
+                        <button onclick="window.location.href='{% url 'appointment_detail' appointment.id %}'">Ver detalles</button> <!-- Botón para ver detalles -->
                     </li>
                 {% endfor %}
             </ul>
         {% else %}
-            <p>No hay próximas reservas.</p>
+            <p>No hay próximas reservas.</p> <!-- Mensaje si no hay próximas reservas -->
         {% endif %}
     </div>
 {% endblock %}

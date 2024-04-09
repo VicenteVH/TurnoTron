@@ -1,18 +1,19 @@
 
-{% extends 'base.html' %}
+{% extends 'base.html' %} <!-- Extiende el diseño base -->
 
-{% block title %}Cancelación Exitosa{% endblock %}
+{% block title %}Cancelación Exitosa{% endblock %} <!-- Título de la página -->
 
-{% block content %}
-    <div class="container">
-        <h1>¡Cancelación Exitosa!</h1>
-        <p>La reserva ha sido cancelada exitosamente.</p>
-        <button onclick="goToList()" class="btn btn-primary">Volver a la lista de reservas</button>
+{% block content %} <!-- Contenido de la página -->
+    <div class="container"> <!-- Contenedor principal -->
+        <h1>¡Cancelación Exitosa!</h1> <!-- Título principal -->
+        <p>La reserva ha sido cancelada exitosamente.</p> <!-- Mensaje de confirmación -->
+        <button onclick="goToList()" class="btn btn-primary">Volver a la lista de reservas</button> <!-- Botón para volver a la lista de reservas -->
     </div>
 
     <script>
-        function goToList() {
-            window.location.href = "{% url 'appointment_list' %}";
+        function goToList() { <!-- Función para redirigir a la lista de reservas -->
+            window.location.href = "{% url 'appointment_list' %}"; <!-- Redirige a la vista de la lista de reservas -->
         }
     </script>
-{% endblock %}
+{% endblock %} <!-- Fin del bloque de contenido -->
+
