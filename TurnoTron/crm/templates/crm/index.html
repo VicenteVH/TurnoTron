@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Metadatos -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título de la página -->
     <title>TurnoTron</title>
+    <!-- Enlace al archivo CSS de Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+    <!-- Estilos CSS Personalizados -->
     <style>
+        /* Estilos para el cuerpo del documento */
         body {
             background-image: url('../../static/crm/images/Barberia.webp');
             background-size: cover;
@@ -16,12 +21,14 @@
             align-items: center; /* Centrar elementos verticalmente */
             justify-content: center; /* Centrar elementos horizontalmente */
         }
+        /* Estilos para el encabezado */
         header {
             background-color: rgba(0, 0, 0, 0.7);
             padding: 20px;
             text-align: center;
             width: 100%;
         }
+        /* Estilos para el contenedor */
         .container {
             background-size: cover;
             background-repeat: repeat; /* Repetir la textura */
@@ -33,10 +40,12 @@
             background-color: rgba(0, 0, 0, 0.5); /* Color de fondo con opacidad */
             border: 1px solid rgba(255, 255, 255, 0.3); /* Borde con opacidad */
         }
+        /* Estilos para el título */
         h1 {
             margin-bottom: 20px;
             color: #fff; /* Color de texto blanco */
         }
+        /* Estilos para los botones */
         .btn {
             margin: 20px auto; /* Centrar los botones horizontalmente */
             display: block; /* Convertir botones en bloques para centrarlos */
@@ -50,20 +59,25 @@
             cursor: pointer; /* Cambiar cursor a mano */
             transition: background-color 0.3s; /* Transición suave */
         }
+        /* Estilos para los botones al pasar el mouse */
         .btn:hover {
             background-color: rgb(0, 0, 0); /* Cambiar color de fondo al pasar el mouse */
         }
     </style>
 </head>
 <body>
+  <!-- Encabezado de la página -->
   <header>
-    <h1>TurnoTron</h1>
+    <h1>TurnoTron</h1> <!-- Título principal -->
   </header>
 
+  <!-- Contenedor de Acciones -->
   <div class="container">
 
+    <!-- Botón para registrarse -->
     <a href="{% url 'register' %}" class="btn btn-primary">Registrarse</a>
 
+    <!-- Botón para iniciar sesión -->
     <a href="{% url 'my-login' %}" class="btn btn-outline-primary">Iniciar sesión</a>
 
   </div>

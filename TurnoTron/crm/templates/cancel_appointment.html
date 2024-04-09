@@ -1,34 +1,38 @@
+{% extends 'base.html' %} <!-- Extiende la plantilla base.html -->
 
-{% extends 'base.html' %}
+{% block title %}Cancelar Reserva{% endblock %} <!-- Define el título de la página como "Cancelar Reserva" -->
 
-{% block title %}Cancelar Reserva{% endblock %}
+{% block header_title %}Cancelar Reserva{% endblock %} <!-- Define el título del encabezado como "Cancelar Reserva" -->
 
-{% block header_title %}Cancelar Reserva{% endblock %}
+{% block content %} <!-- Inicia el bloque de contenido -->
 
-{% block content %}
-    <div class="container">
-        <h1>Confirmar Cancelación de Reserva</h1>
-        {% if message %}
-            <p>{{ message }}</p>
+    <div class="container"> <!-- Inicia el contenedor principal -->
+        <h1>Confirmar Cancelación de Reserva</h1> <!-- Título de la sección -->
+
+        {% if message %} <!-- Verifica si hay algún mensaje de error o confirmación -->
+            <p>{{ message }}</p> <!-- Muestra el mensaje si existe -->
         {% endif %}
-        <p>¿Estás seguro de que deseas cancelar la reserva?</p>
 
-        <form id="cancelForm" method="post" action="{% url 'cancel_appointment' appointment.id %}">
-            {% csrf_token %}
-            <button type="submit" name="confirm_cancel" id="confirmCancelBtn" class="btn btn-danger">Sí, Cancelar Reserva</button>
+        <p>¿Estás seguro de que deseas cancelar la reserva?</p> <!-- Pregunta al usuario si está seguro de cancelar la reserva -->
+
+        <form id="cancelForm" method="post" action="{% url 'cancel_appointment' appointment.id %}"> <!-- Formulario para confirmar la cancelación de la reserva -->
+            {% csrf_token %} <!-- Agrega el token CSRF para protección contra ataques CSRF -->
+            <button type="submit" name="confirm_cancel" id="confirmCancelBtn" class="btn btn-danger">Sí, Cancelar Reserva</button> <!-- Botón para confirmar la cancelación -->
         </form>
 
         <!-- Script para mostrar confirmación antes de enviar el formulario -->
         <script>
-            document.getElementById("confirmCancelBtn").addEventListener("click", function(event) {
-                var confirmed = confirm("¿Estás seguro de que deseas cancelar la reserva?");
-                if (!confirmed) {
+            document.getElementById("confirmCancelBtn").addEventListener("click", function(event) { <!-- Agrega un evento click al botón de confirmación -->
+                var confirmed = confirm("¿Estás seguro de que deseas cancelar la reserva?"); <!-- Muestra un mensaje de confirmación -->
+                if (!confirmed) { <!-- Verifica si el usuario confirmó la cancelación -->
                     event.preventDefault(); // Cancela el envío del formulario si no está confirmado
                 }
             });
         </script>
-        {% if success_message %}
-            <p>{{ success_message }}</p>
+
+        {% if success_message %} <!-- Verifica si hay un mensaje de éxito -->
+            <p>{{ success_message }}</p> <!-- Muestra el mensaje de éxito si existe -->
         {% endif %}
-    </div>
-{% endblock %}
+    </div> <!-- Termina el contenedor principal -->
+
+{% endblock %} <!-- Termina el bloque de contenido -->

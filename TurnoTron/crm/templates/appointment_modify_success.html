@@ -1,18 +1,17 @@
+{% extends 'base.html' %} <!-- Extiende el diseño base -->
 
-{% extends 'base.html' %}
+{% block title %}Modificación Exitosa{% endblock %} <!-- Título de la página -->
 
-{% block title %}Modificación Exitosa{% endblock %}
-
-{% block content %}
+{% block content %} <!-- Contenido de la página -->
     <div class="container">
-        <h1>¡Modificación Exitosa!</h1>
-        <p>La reserva ha sido modificada exitosamente.</p>
-        <button onclick="goToList()" class="btn btn-primary">Volver a la lista de reservas</button>
+        <h1>¡Modificación Exitosa!</h1> <!-- Título de éxito -->
+        <p>La reserva ha sido modificada exitosamente.</p> <!-- Mensaje de éxito -->
+        <button onclick="goToList()" class="btn btn-primary">Volver a la lista de reservas</button> <!-- Botón para volver a la lista de reservas -->
     </div>
 
     <script>
         function goToList() {
-            window.location.href = "{% url 'appointment_list' %}";
+            window.location.href = "{% url 'appointment_list' %}"; <!-- Función para redirigir a la lista de reservas -->
         }
     </script>
 {% endblock %}

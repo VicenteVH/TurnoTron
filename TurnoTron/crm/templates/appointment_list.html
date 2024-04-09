@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} <!-- Extiende el diseño base -->
 
-{% block title %}Lista de Reservas{% endblock %}
+{% block title %}Lista de Reservas{% endblock %} <!-- Título de la página -->
 
-{% block header_title %}Mis Reservas{% endblock %}
+{% block header_title %}Mis Reservas{% endblock %} <!-- Título del encabezado -->
 
-{% block content %}
+{% block content %} <!-- Contenido de la página -->
     <style>
         /* Estilos específicos para el título */
         .page-title {
@@ -33,10 +33,11 @@
 
     <div class="container">
         <!-- Botones de reserva -->
-        <a href="{% url 'appointment_upcoming' %}" class="btn btn-dark btn-lg mb-3">Reservas Próximas</a>
-        <a href="{% url 'appointment_history' %}" class="btn btn-dark btn-lg">Historial de Reservas</a>
+        <a href="{% url 'appointment_upcoming' %}" class="btn btn-dark btn-lg mb-3">Reservas Próximas</a> <!-- Botón para ver reservas próximas -->
+        <a href="{% url 'appointment_history' %}" class="btn btn-dark btn-lg">Historial de Reservas</a> <!-- Botón para ver historial de reservas -->
     </div>
 
+    <!-- Scripts para redireccionar a las páginas de reservas próximas e historial de reservas -->
     <script>
         function upcoming() {
             window.location.href = "{% url 'appointment_upcoming' %}";

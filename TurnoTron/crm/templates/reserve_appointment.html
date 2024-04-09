@@ -1,19 +1,18 @@
+{% extends 'base.html' %} <!-- Extiende la plantilla base.html -->
 
-{% extends 'base.html' %}
+{% block title %}Detalles de Reserva{% endblock %} <!-- Define el título de la página como "Detalles de Reserva" -->
 
-{% block title %}Detalles de Reserva{% endblock %}
+{% block header_title %}Reservar Turno{% endblock %} <!-- Define el título del encabezado como "Reservar Turno" -->
 
-{% block header_title %}Reservar Turno{% endblock %}
+{% block content %} <!-- Inicia el bloque de contenido -->
 
-{% block content %}
-    <div class="container">
-        <form method="post">
-            {% csrf_token %}
-            <h1>Detalles de la Reserva</h1>
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Confirmar reserva</button>
-        </form>
-    </div>
-{% endblock %}
+    <div class="container"> <!-- Inicia el contenedor principal -->
+        <form method="post"> <!-- Inicia el formulario de reserva -->
+            {% csrf_token %} <!-- Token CSRF para protección contra falsificación de solicitudes entre sitios -->
+            <h1>Detalles de la Reserva</h1> <!-- Encabezado principal -->
+            {{ form.as_p }} <!-- Renderiza el formulario con los campos como párrafos -->
+            <button type="submit" class="btn btn-primary">Confirmar reserva</button> <!-- Botón para confirmar la reserva -->
+        </form> <!-- Termina el formulario de reserva -->
+    </div> <!-- Termina el contenedor principal -->
 
-
+{% endblock %} <!-- Termina el bloque de contenido -->

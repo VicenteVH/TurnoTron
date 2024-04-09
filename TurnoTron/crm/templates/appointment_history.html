@@ -1,23 +1,23 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} <!-- Extiende el diseño base -->
 
-{% block title %}Historial de Reservas{% endblock %}
+{% block title %}Historial de Reservas{% endblock %} <!-- Título de la página -->
 
-{% block header_title %}Historial de Reservas{% endblock %}
+{% block header_title %}Historial de Reservas{% endblock %} <!-- Título del encabezado -->
 
 {% block content %}
 
-    <div class="history-appointments">
+    <div class="history-appointments"> <!-- Contenedor de historial de reservas -->
         
-        {% if past_appointments %}
-            <ul>
-                {% for appointment in past_appointments %}
+        {% if past_appointments %} <!-- Comprobar si hay reservas pasadas -->
+            <ul> <!-- Lista de reservas pasadas -->
+                {% for appointment in past_appointments %} <!-- Iterar sobre las reservas pasadas -->
                     <li>
-                        <strong>{{ appointment.date }}</strong> - <span style="color: #fff;">{{ appointment.barber_shop.name }}</span>
+                        <strong>{{ appointment.date }}</strong> - <span style="color: #fff;">{{ appointment.barber_shop.name }}</span> <!-- Detalles de la reserva pasada -->
                     </li>
                 {% endfor %}
             </ul>
         {% else %}
-            <p>No hay historial de reservas.</p>
+            <p>No hay historial de reservas.</p> <!-- Mensaje si no hay reservas pasadas -->
         {% endif %}
     </div>
-{% endblock %}
+{% endblock %} <!-- Fin del bloque de contenido -->

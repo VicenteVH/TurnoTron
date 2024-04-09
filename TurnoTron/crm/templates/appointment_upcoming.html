@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} <!-- Extiende el diseño base -->
 
-{% block title %}Próximas Reservas{% endblock %}
+{% block title %}Próximas Reservas{% endblock %} <!-- Título de la página -->
 
-{% block header_title %}Próximas Reservas{% endblock %}
+{% block header_title %}Próximas Reservas{% endblock %} <!-- Título del encabezado -->
 
 {% block content %}
     <div class="upcoming-appointments">
@@ -17,7 +17,7 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <p>No hay próximas reservas.</p>
+            <p>No hay próximas reservas.</p> <!-- Mensaje si no hay próximas reservas -->
         {% endif %}
     </div>
 {% endblock %}
