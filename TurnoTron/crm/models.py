@@ -2,12 +2,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from datetime import time
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 class BarberShop(models.Model):
     name = models.CharField(max_length=100)
+    opening_time = models.TimeField(default=time(8, 0)) # Por default empieza a las 8am.
+    closing_time = models.TimeField(default=time(17, 0)) # Por default cierra a las 5pm.
 
     def __str__(self):
         return self.name
@@ -21,7 +24,7 @@ class Appointment(models.Model):
     is_expired = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Appointment #{self.pk}"
+        return f"Appointment #{self.pk} in {self.barber_shop} by {self.customer}"
 
     def cancel(self):
         self.delete()

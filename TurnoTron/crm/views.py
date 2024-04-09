@@ -1,6 +1,13 @@
 from django.shortcuts import render, redirect
 from . forms import CreateUserForm, LoginForm
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .forms import AppointmentForm
+from .models import Appointment
+from django.utils import timezone
+from datetime import date, datetime, time
+from django.contrib import messages
 
 # - Authentication models and functions
 
@@ -69,15 +76,6 @@ def dashboard(request):
 
 # Reserva de turnos
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from .forms import AppointmentForm
-from .models import Appointment
-from django.utils import timezone
-from datetime import date
-import datetime
-from django.contrib import messages
-
 @login_required
 def reserve_appointment(request):
     if request.method == 'POST':
@@ -88,6 +86,11 @@ def reserve_appointment(request):
             if appointment.date < timezone.now().date():
                 # Si la fecha es anterior a la actual, mostrar un mensaje de error
                 return render(request, 'error.html', {'message': 'La fecha de la reserva no puede ser anterior a la fecha actual.'})
+            # Verificar si la fecha está dentro del horario operacional de la barberia.
+            if not appointment.barber_shop.opening_time <= appointment.time <= appointment.barber_shop.closing_time:
+                message = f"La hora de la reserva debe estar dentro del horario laboral de {appointment.barber_shop}\
+                  ({appointment.barber_shop.opening_time.strftime('%I:%M %p')} - {appointment.barber_shop.closing_time.strftime('%I:%M %p')}"
+                return render(request, 'error.html', {'message': message})
             # Verificar si la hora de la reserva es con al menos 1 hora de anticipación
             if appointment.date == timezone.now().date() and appointment.time <= (timezone.now() + timezone.timedelta(hours=1)).time():
                 # Si la hora es con menos de 1 hora de anticipación, mostrar un mensaje de error
@@ -114,7 +117,7 @@ def appointment_success(request):
 def appointment_detail(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id)
     in_history = False
-    if appointment.date < datetime.date.today():
+    if appointment.date < date.today():
         in_history = True
     return render(request, 'appointment_detail.html', {'appointment': appointment})
 
@@ -160,10 +163,10 @@ def appointment_list(request):
 @login_required
 def appointment_history(request):
     # Obtener las reservas que ya han pasado su fecha y hora
-    past_appointments = Appointment.objects.filter(date__lt=timezone.now().date())
+    past_appointments = Appointment.objects.filter(date__lt=timezone.now().date(), customer=request.user)
     return render(request, 'appointment_history.html', {'past_appointments': past_appointments})
 
 @login_required
 def appointment_upcoming(request):
-    upcoming_appointments = Appointment.objects.filter(date__gte=date.today()).order_by('date', 'time')
+    upcoming_appointments = Appointment.objects.filter(date__gte=date.today(), customer=request.user).order_by('date', 'time')
     return render(request, 'appointment_upcoming.html', {'upcoming_appointments': upcoming_appointments})

@@ -5,47 +5,6 @@
 {% block header_title %}Próximas Reservas{% endblock %}
 
 {% block content %}
-    <style>
-        /* Estilos específicos para la lista de próximas reservas */
-        .upcoming-appointments {
-            margin-top: 40px; /* Espacio superior */
-            text-align: center; /* Centrar el contenido */
-        }
-
-        .upcoming-appointments ul {
-            list-style-type: none; /* Eliminar los puntos de la lista */
-            padding: 0; /* Eliminar el relleno */
-            margin: 0; /* Eliminar el margen */
-        }
-
-        .upcoming-appointments li {
-            background-color: rgba(0, 0, 0, 0.5); /* Color de fondo con opacidad */
-            padding: 10px; /* Espaciado interno reducido */
-            border-radius: 10px; /* Bordes redondeados */
-            margin-bottom: 10px; /* Espacio inferior reducido */
-            color: #fff; /* Color de texto blanco */
-        }
-
-        .upcoming-appointments li strong {
-            color: #fff; /* Color de texto blanco */
-        }
-
-        .upcoming-appointments li button {
-            background-color: rgba(0, 0, 0, 0.6); /* Color de fondo del botón con opacidad */
-            color: #fff; /* Color de texto blanco */
-            border: none; /* Sin borde */
-            border-radius: 10px; /* Bordes redondeados */
-            padding: 5px 10px; /* Espaciado interno reducido */
-            font-size: 14px; /* Tamaño de fuente reducido */
-            cursor: pointer; /* Cambiar cursor a mano */
-            transition: background-color 0.3s; /* Transición suave */
-        }
-
-        .upcoming-appointments li button:hover {
-            background-color: rgba(0, 0, 0, 0.8); /* Cambiar color de fondo al pasar el mouse */
-        }
-    </style>
-
     <div class="upcoming-appointments">
         
         {% if upcoming_appointments %}
@@ -53,7 +12,7 @@
                 {% for appointment in upcoming_appointments %}
                     <li>
                         <strong>{{ appointment.date }}</strong> - <span style="color: #fff;">{{ appointment.barber_shop.name }}</span>
-                        <button onclick="window.location.href='{% url 'appointment_detail' appointment.id %}'">Ver detalles</button>
+                        <a href="{% url 'appointment_detail' appointment.id %}">Ver detalles</a>
                     </li>
                 {% endfor %}
             </ul>

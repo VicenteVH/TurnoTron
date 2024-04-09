@@ -7,98 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}TurnoTron{% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
-    <style>
-        body {
-            background-image: url('../../static/crm/images/Barberia.webp');
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Centrar elementos verticalmente */
-            justify-content: center; /* Centrar elementos horizontalmente */
-            margin: 0; /* Eliminar margen por defecto */
-            padding: 0; /* Eliminar relleno por defecto */
-        }
-        header {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            text-align: center;
-            width: 100%;
-            position: fixed; /* Fijar el encabezado en la parte superior de la página */
-            top: 0; /* Posicionar el encabezado en la parte superior de la página */
-            z-index: 1000; /* Asegurar que el encabezado esté por encima de otros elementos */
-        }
-        .container {
-            background-size: cover;
-            background-repeat: repeat; /* Repetir la textura */
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            max-width: 400px; /* Ancho máximo del contenedor */
-            margin: auto;
-            margin-top: 80px; /* Espacio para evitar que el contenido se solape con el encabezado */
-            background-color: rgba(0, 0, 0, 0.5); /* Color de fondo con opacidad */
-            border: 1px solid rgba(255, 255, 255, 0.3); /* Borde con opacidad */
-        }
-        h1 {
-            margin-bottom: 20px;
-            color: #fff; /* Color de texto blanco */
-        }
-        p {
-            margin-bottom: 20px;
-            color: #fff; /* Color de texto blanco */
-        }
-        input[type="text"], input[type="email"], input[type="password"], select, input[type="date"], input[type="time"] {
-            margin: 10px auto; /* Espaciado de los campos de entrada */
-            display: block; /* Mostrar cada campo en una nueva línea */
-            background-color: rgba(0, 0, 0, 0.6); /* Cambiar color de fondo azul con transparencia */
-            color: #fff; /* Color de texto blanco */
-            border: none; /* Sin borde */
-            border-radius: 10px; /* Bordes redondeados */
-            padding: 10px; /* Espaciado interno */
-            font-size: 16px; /* Tamaño de fuente */
-            font-family: Arial, sans-serif; /* Cambiar la fuente */
-            width: calc(100% - 20px); /* Ancho del campo de entrada */
-        }
-        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus, input[type="date"]:focus, input[type="time"]:focus {
-            outline: none; /* Eliminar el contorno al enfocar */
-            background-color: rgba(0, 0, 0, 0.8); /* Cambiar color de fondo al enfocar */
-        }
-        input[type="submit"] {
-            margin: 20px auto; /* Centrar el botón de enviar */
-            display: block; /* Convertir el botón en un bloque para centrarlo */
-            background-color: rgba(0, 0, 0, 0.6); /* Cambiar color de fondo azul con transparencia */
-            color: #fff; /* Color de texto blanco */
-            border: none; /* Sin borde */
-            border-radius: 10px; /* Bordes redondeados */
-            padding: 10px 30px; /* Espaciado interno */
-            font-size: 20px; /* Tamaño de fuente */
-            font-family: Arial, sans-serif; /* Cambiar la fuente */
-            cursor: pointer; /* Cambiar cursor a mano */
-            transition: background-color 0.3s; /* Transición suave */
-        }
-        input[type="submit"]:hover {
-            background-color: rgba(0, 0, 0, 0.8); /* Cambiar color de fondo al pasar el mouse */
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'crm/styles.css' %}">
 </head>
-<body>
-    <header>
-        <h1>{% block header_title %}{% endblock %}</h1>
-    </header>
+    <body>
+        <header>
+            <h1>{% block header_title %}{% endblock %}</h1>
+        </header>
 
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        <a href="{% url 'dashboard' %}" class="btn btn-dark btn-lg mt-3">Volver a Inicio</a>
+    </body>
 
-    <button onclick="goToDashboard()" class="btn btn-dark btn-lg mt-3">Volver a Inicio</button>
-
-    <script>
-        function goToDashboard() {
-            window.location.href = "{% url 'dashboard' %}";
-        }
-    </script>
-</body>
 </html>
