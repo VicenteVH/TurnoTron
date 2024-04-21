@@ -100,7 +100,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # Configuración para admitir la internacionalización y la localización.
-LANGUAGE_CODE = 'en-us'  # Código de idioma predeterminado.
+LANGUAGE_CODE = 'es-us'  # Código de idioma predeterminado.
 TIME_ZONE = 'UTC'  # Zona horaria predeterminada.
 USE_I18N = True  # Habilitar la internacionalización.
 USE_TZ = True  # Habilitar el uso de zonas horarias.
