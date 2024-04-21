@@ -1,11 +1,24 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.utils import timezone
 from datetime import time
+
+# Modelo para usuarios
+class User(AbstractUser):
+    
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
 
 # Modelo para clientes
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    
+    def __str__(self):
+        return str(self.user)
+
 
 # Modelo para las barberías
 class BarberShop(models.Model):
@@ -15,10 +28,20 @@ class BarberShop(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+# Modelo para los barberos
+class Barber(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='barber')
+    barbershop = models.ForeignKey(BarberShop, related_name='barbers', on_delete=models.CASCADE, blank=False, null=False)
+
+    def __str__(self):
+        return str(self.user)
+
 
 # Modelo para las reservas de turnos
 class Appointment(models.Model):
-    barber_shop = models.ForeignKey(BarberShop, on_delete=models.CASCADE, default='1')
+    barber_shop = models.ForeignKey(BarberShop, on_delete=models.CASCADE, default='1', related_name='appointments')
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
     time = models.TimeField()

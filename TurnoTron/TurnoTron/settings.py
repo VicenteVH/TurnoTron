@@ -114,3 +114,6 @@ STATIC_URL = '/static/'
 # Default primary key field type
 # Configuración del tipo de campo clave primaria predeterminado.
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  # Campo de clave primaria predeterminado para los modelos.
+
+# Modelo Usuario
+AUTH_USER_MODEL = 'crm.User'

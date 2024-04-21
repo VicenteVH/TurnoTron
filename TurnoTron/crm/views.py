@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import EmptyPage, Paginator, PageNotAnInteger
 from .forms import AppointmentForm, CreateUserForm, LoginForm
-from .models import Appointment, Customer
+from .models import Appointment, Customer, Barber, BarberShop
 from django.utils import timezone
 from datetime import date, datetime, time
 from django.contrib import messages
@@ -15,9 +16,11 @@ from django.contrib.auth.models import auth
 from django.utils import timezone
 from datetime import date
 
+
 # Vista para la página de inicio
 def homepage(request):
     return render(request, 'crm/index.html')
+
 
 # Vista para el registro de usuario
 def register(request):
@@ -31,33 +34,45 @@ def register(request):
     context = {'registerform': form}
     return render(request, 'crm/register.html', context=context)
 
+
 # Vista para el inicio de sesión del usuario
 def my_login(request):
-    form = LoginForm()
     if request.method == 'POST':
-        form = LoginForm(request, data=request.POST)
-        if form.is_valid():
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                auth.login(request, user)
-                return redirect("dashboard")
-    context = {'loginform':form}
-    return render(request, 'crm/my-login.html', context=context)
+        username = request.POST.get('username')
+        print(username)
+        password = request.POST.get('password')
+        print(password)
+        user = authenticate(request, username=username, password=password)
+        print(user)
+        if user is not None: 
+            auth.login(request, user)
+            return redirect("dashboard")
+
+    return render(request, 'crm/my-login.html')
+
 
 # Vista para cerrar la sesión del usuario
 def user_logout(request):
     auth.logout(request)
     return redirect("")
 
+
 # Vista para el dashboard del usuario
 @login_required(login_url="my-login")
 def dashboard(request):
-    return render(request, 'crm/dashboard.html')
+    for barber in Barber.objects.all():
+        print(barber)
+
+    print(request.user)
+    if request.user.username not in [barber.user.username for barber in Barber.objects.all()]:
+        print("Its a costumer")
+        return render(request, 'crm/dashboard.html')
+    else:
+        print("Its a barber")
+        return render(request, 'crm/barbershop_dashboard.html')
+
 
 # Reserva de turnos
-
 @login_required
 def reserve_appointment(request):
     if request.method == 'POST':
@@ -85,10 +100,12 @@ def reserve_appointment(request):
         form = AppointmentForm()
     return render(request, 'reserve_appointment.html', {'form': form})
 
+
 # Vista para mostrar un mensaje de éxito después de reservar un turno
 @login_required
 def appointment_success(request):
     return render(request, 'appointment_success.html')
+
 
 # Vista para mostrar los detalles de una reserva
 @login_required
@@ -98,6 +115,7 @@ def appointment_detail(request, appointment_id):
     if appointment.date < date.today():
         in_history = True
     return render(request, 'appointment_detail.html', {'appointment': appointment})
+
 
 # Vista para cancelar una reserva
 @login_required
@@ -110,6 +128,7 @@ def cancel_appointment(request, appointment_id):
         else:
             return redirect('appointment_detail', appointment_id=appointment_id)
     return render(request, 'cancel_appointment.html', {'appointment': appointment}) 
+
 
 # Vista para modificar una reserva
 @login_required
@@ -130,21 +149,106 @@ def modify_appointment(request, appointment_id):
         form = AppointmentForm(instance=appointment)
     return render(request, 'modify_appointment.html', {'form': form, 'appointment_id': appointment_id})
 
+
 # Vista para mostrar la lista de reservas
 @login_required
 def appointment_list(request):
     appointments = Appointment.objects.all()
     return render(request, 'appointment_list.html', {'appointments': appointments})
 
+
+# Vista para mostrar la lista de reservas de una barbería
+def barbershop_upcoming_appointments(request):
+    barbershop = request.user.barber.barbershop
+    upcoming_appointments = Appointment.objects.filter(date__gte=date.today(), barber_shop=barbershop).order_by('date', 'time')
+
+    # Pagina pedida
+    page = request.GET.get("page")
+
+    # Reservaciones por página
+    APPOINTMENTS_PER_PAGE = 8
+
+    # Paginador
+    upcoming_appointments = Paginator(upcoming_appointments, APPOINTMENTS_PER_PAGE)
+
+    try:
+        upcoming_appointments = upcoming_appointments.page(page)
+    except PageNotAnInteger:
+        upcoming_appointments = upcoming_appointments.page(1)
+    except EmptyPage:
+        upcoming_appointments = upcoming_appointments.page(upcoming_appointments.num_pages)
+
+    return render(request, 'crm/barbershop_appointment_upcoming.html', {'upcoming_appointments': upcoming_appointments})
+
+
+def barbershop_appointments_history(request):
+    barbershop = request.user.barber.barbershop
+    # Obtener las reservas que ya han pasado su fecha y hora
+    past_appointments = Appointment.objects.filter(date__lt=timezone.now().date(), barber_shop=barbershop)
+
+    # Pagina pedida
+    page = request.GET.get("page")
+
+    # Reservaciones por página
+    APPOINTMENTS_PER_PAGE = 8
+
+    # Paginador
+    past_appointments = Paginator(past_appointments, APPOINTMENTS_PER_PAGE)
+
+    try:
+        past_appointments = past_appointments.page(page)
+    except PageNotAnInteger:
+        past_appointments = past_appointments.page(1)
+    except EmptyPage:
+        past_appointments = past_appointments.page(past_appointments.num_pages)
+
+    return render(request, 'crm/barbershop_appointment_history.html', {'past_appointments': past_appointments})
+
+
 # Vista para mostrar el historial de reservas pasadas
 @login_required
 def appointment_history(request):
     # Obtener las reservas que ya han pasado su fecha y hora
     past_appointments = Appointment.objects.filter(date__lt=timezone.now().date(), customer=request.user)
+
+    # Pagina pedida
+    page = request.GET.get("page")
+
+    # Reservaciones por página
+    APPOINTMENTS_PER_PAGE = 7
+
+    # Paginador
+    past_appointments = Paginator(past_appointments, APPOINTMENTS_PER_PAGE)
+
+    try:
+        past_appointments = past_appointments.page(page)
+    except PageNotAnInteger:
+        past_appointments = past_appointments.page(1)
+    except EmptyPage:
+        past_appointments = past_appointments.page(past_appointments.num_pages)
+    
     return render(request, 'appointment_history.html', {'past_appointments': past_appointments})
+
 
 # Vista para mostrar las próximas reservas
 @login_required
 def appointment_upcoming(request):
     upcoming_appointments = Appointment.objects.filter(date__gte=date.today(), customer=request.user).order_by('date', 'time')
+
+    # Pagina pedida
+    page = request.GET.get("page")
+
+    # Reservaciones por página
+    APPOINTMENTS_PER_PAGE = 7
+
+    # Paginador
+    upcoming_appointments = Paginator(upcoming_appointments, APPOINTMENTS_PER_PAGE)
+
+    try:
+        upcoming_appointments = upcoming_appointments.page(page)
+    except PageNotAnInteger:
+        upcoming_appointments = upcoming_appointments.page(1)
+    except EmptyPage:
+        upcoming_appointments = upcoming_appointments.page(upcoming_appointments.num_pages)
+
     return render(request, 'appointment_upcoming.html', {'upcoming_appointments': upcoming_appointments})
