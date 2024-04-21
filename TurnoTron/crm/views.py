@@ -39,11 +39,8 @@ def register(request):
 def my_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
-        print(username)
         password = request.POST.get('password')
-        print(password)
         user = authenticate(request, username=username, password=password)
-        print(user)
         if user is not None: 
             auth.login(request, user)
             return redirect("dashboard")
@@ -60,10 +57,6 @@ def user_logout(request):
 # Vista para el dashboard del usuario
 @login_required(login_url="my-login")
 def dashboard(request):
-    for barber in Barber.objects.all():
-        print(barber)
-
-    print(request.user)
     if request.user.username not in [barber.user.username for barber in Barber.objects.all()]:
         print("Its a costumer")
         return render(request, 'crm/dashboard.html')
@@ -215,7 +208,7 @@ def appointment_history(request):
     page = request.GET.get("page")
 
     # Reservaciones por página
-    APPOINTMENTS_PER_PAGE = 7
+    APPOINTMENTS_PER_PAGE = 6
 
     # Paginador
     past_appointments = Paginator(past_appointments, APPOINTMENTS_PER_PAGE)
@@ -239,7 +232,7 @@ def appointment_upcoming(request):
     page = request.GET.get("page")
 
     # Reservaciones por página
-    APPOINTMENTS_PER_PAGE = 7
+    APPOINTMENTS_PER_PAGE = 6
 
     # Paginador
     upcoming_appointments = Paginator(upcoming_appointments, APPOINTMENTS_PER_PAGE)

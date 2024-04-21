@@ -7,7 +7,7 @@
 {% block content %}
     <div class="upcoming-appointments">
         <ul>
-            {% for appointment in appointments_history %}
+            {% for appointment in past_appointments %}
                 <li>
                     <div class="p-3">
                         <div class="mb-3">
@@ -28,13 +28,13 @@
                 </li>
             {% endfor %}
         </ul>
-        {% if appointments_history.has_previous or appointments_history.has_next %}
-            <div class="container d-flex justify-content-center">
+        {% if past_appointments.has_previous or past_appointments.has_next %}
+            <div class="d-flex justify-content-center">
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
-                        {% if upcoming_appointments.has_previous %}
+                        {% if past_appointments.has_previous %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ appointments_history.previous_page_number }}" aria-label="Previous">
+                                <a class="page-link" href="?page={{ past_appointments.previous_page_number }}" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
@@ -43,14 +43,14 @@
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
-                        {% elif upcoming_appointments.has_next %}
+                        {% elif past_appointments.has_next %}
                             <li class="page-item text-muted">
                                 <a class="page-link" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ appointments_history.next_page_number }}" aria-label="Next">
+                                <a class="page-link" href="?page={{ past_appointments.next_page_number }}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>

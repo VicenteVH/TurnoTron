@@ -19,5 +19,36 @@
         {% else %}
             <p>No hay historial de reservas.</p> <!-- Mensaje si no hay reservas pasadas -->
         {% endif %}
+        {% if past_appointments.has_previous or past_appointments.has_next %}
+        <div class="d-flex justify-content-center">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    {% if past_appointments.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ past_appointments.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item text-muted">
+                            <a class="page-link" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {% elif past_appointments.has_next %}
+                        <li class="page-item text-muted">
+                            <a class="page-link" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ past_appointments.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    {% endif %}
     </div>
 {% endblock %} <!-- Fin del bloque de contenido -->

@@ -6,9 +6,8 @@ from datetime import time
 # Modelo para usuarios
 class User(AbstractUser):
     
-
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return self.username
 
 
 # Modelo para clientes
@@ -25,6 +24,7 @@ class BarberShop(models.Model):
     name = models.CharField(max_length=100)
     opening_time = models.TimeField(default=time(8, 0)) # Por default empieza a las 8am.
     closing_time = models.TimeField(default=time(17, 0)) # Por default cierra a las 5pm.
+
 
     def __str__(self):
         return self.name
